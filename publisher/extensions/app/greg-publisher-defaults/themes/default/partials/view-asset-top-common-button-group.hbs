@@ -1,0 +1,14 @@
+<div class="container pull-right">
+    <div class="col-sm-10 pull-right">
+        <form class="form-inline pull-right" action="#" method="get">
+            <div class="top-common-btn-grp2 input-group col-sm-8 pull-right btn-group ">
+                {{#if assetVersions}}
+                    {{> view-asset-diff-view-container ..}}
+                {{/if}}
+
+                {{> view-asset-top-show-dependency-button }}
+                {{> view-asset-top-custom-addons-container }}
+            </div>
+        </form>
+    </div>
+</div>

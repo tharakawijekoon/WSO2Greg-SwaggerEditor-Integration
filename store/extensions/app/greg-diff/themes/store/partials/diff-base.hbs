@@ -1,0 +1,23 @@
+<div class="wrapper">
+    <div class="container-fluid">
+        <header>
+            <div class="es-row row wr-global-header">
+                <div class="col-xs-8 col-sm-8 app-logo">
+                    <a href="{{tenantedUrl ""}}{{meta.landingPage}}">
+                        <img src="{{url "/themes/store/img/logo.png"}}" />
+                        <h2 class="app-title hidden-xs-320">Governance Center - Store</h2>
+                    </a>
+                </div>
+            </div>
+        </header>
+
+        {{#if_equal mediaType "wsdl"}}
+            {{>wsdl-diff-base}}
+        {{else}}
+            {{>default-diff-base}}
+        {{/if_equal}}
+
+
+    </div>
+    {{>footer}}
+</div> 

@@ -1,0 +1,43 @@
+{
+    "application": {
+        "landingPage": "/pages/top-assets"
+    },
+    "features": {
+        "social": {
+            "enabled": true,
+            "keys": {
+                "socialScriptSource": "%https.host%/social/export-js/social.js",
+                "socialScriptType": "text/javascript",
+                "socialAppUrl": "%https.local%/social"
+            }
+        },
+        "assetTypesHotDelploy": {
+            "enabled": true
+        },
+        "searchHistory": {
+            "enabled": true,
+            "keys": {
+                "maxCount": 5
+            }
+        }
+    },
+    "assets": ["gadget", "site"],
+    "disabledAssets":[],
+    "assetsPageSize": 12,
+    "commentsPageSize": 10,
+    "userSpace": "/_system/governance/users",
+    "roles": {
+        "Internal/store": {
+
+        }
+    },
+    "userRoles": ["Internal/store"],
+    "permissions": {
+        "login": {
+
+        }
+    },
+    "paths": {
+        "RXT_EXTENSION_PATH": "/config/ext/"
+    }
+}
