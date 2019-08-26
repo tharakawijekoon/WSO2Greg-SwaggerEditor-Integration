@@ -1,0 +1,47 @@
+<form class="form-horizontal" id='form-asset-update' method='post' action='{{url ""}}/apis/assets/{{assets.id}}?type={{rxt.shortName}}' data-redirect-url='{{url ""}}/assets/{{rxt.shortName}}/details/' >
+    <div id="swagger-editor" class="" style="margin-right: auto;max-width: 880px;height: 100%;margin-left: auto;">
+        <script>
+            window.onload = function() {
+                // Build a system
+                const editor = SwaggerEditorBundle({
+                    dom_id: '#swagger-editor',
+                    layout: 'StandaloneLayout',
+                    presets: [
+                        SwaggerEditorStandalonePreset
+                    ]
+                })
+                window.editor = editor
+            }
+        </script>
+    </div>
+    <!--<div id="swaggerEditer" class="modal" editor-url='{{url ""}}/themes/default/swaggereditor/' style="display:none; z-index:9000; top:0; left:0; height:100%; width:100%;background:white">-->
+    <!--<div class="swagger_editer_header">-->
+        <!--<button class="btn btn-primary" id="update_swagger">-->
+            <!--<form method="POST" id="update_swagger_form" enctype="multipart/form-data" action='{{url ""}}/assets/{{rxt.shortName}}/details/'/>-->
+                <!--<input type="hidden" value="validateSwagger" name="action"/>-->
+                <!--<input type="hidden" id="swaggerDefinition" name="swaggerDefinition" value="" />-->
+            <!--</form>-->
+        <!--<span class="fw-stack fw-lg" style="font-size:1em">-->
+			<!--<i class="fw fw-circle-outline fw-stack-2x"></i>-->
+			<!--<i class="fw fw-save fw-stack-1x"></i>-->
+		<!--</span>-->
+        <!--<%=i18n.localize("Apply Changes")%>-->
+        <!--</button>-->
+        <!--<button class="btn btn-secondary" data-dismiss="modal" aria-hidden="true" id="close_swagger_editor"><%=i18n.localize("Discard Changes")%></button>-->
+        <!--</div>-->
+    <!--</div>-->
+<div class="clearfix"></div>
+    <div id="updateButtons" class="form-actions">
+        <input type="hidden" id="asset-id" value="{{assets.id}}">
+        <input type="hidden" id="asset-type" value="{{assets.type}}">
+        <div class="form-group">
+            <div class="col-sm-10">
+                <input type="submit" value="Update" class="btn btn-primary" name="editAssetButton" id="editAssetButton">
+                <input type="reset" value="Reset" class="btn btn-secondary">
+                <button type="button" id="btn-cancel-update" class="btn btn-secondary">{{t "Cancel"}}</button>
+                <input type="hidden" value="{{rxt.shortName}}" name="{{rxt.shortName}}" id="meta-asset-type">
+            </div>
+        </div>
+    </div>
+</form>
+</body>

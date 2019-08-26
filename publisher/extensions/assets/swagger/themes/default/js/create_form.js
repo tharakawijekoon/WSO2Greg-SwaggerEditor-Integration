@@ -18,12 +18,12 @@
  */
 /**
  * [contains actions, for creating a swagger name when the swagger url is selected,
- * to show drop down menu for import & upload of policies,
+ * to show drop down menu for import, upload & create of policies,
  * to call custom api
  * ]
  */
 $(function() {
-    var uploadUI,importUI;
+    var uploadUI,importUI,manualUI;
 
     //function to set the swagger name from the swagger url.
     $('input[name="overview_url"]').change(function() {
@@ -78,6 +78,10 @@ $(function() {
                 name = encodeURIComponent($('input[name="overview_name"]').val());
                 version = $('input[name="overview_version"]').val();
                 if (!validator.isValidForm(importUI)) {
+                    messages.alertError("All required fields must be provided");
+                    return false;
+                }
+                if (!validator.isValidForm(manualUI)) {
                     messages.alertError("All required fields must be provided");
                     return false;
                 }
@@ -150,6 +154,7 @@ $(function() {
         //function to display upload or import uis.
         uploadUI = $('#uploadUI');
         importUI = $('#importUI');
+        manualUI = $('#manualUI');
         importUI.show();
         validator.initValidationEvents('importUI',function(){});
         $('#form-asset-create').attr('action', caramel.context + '/apis/assets?type=swagger');
@@ -161,15 +166,27 @@ $(function() {
             if (selectedValue == "upload") {
                 uploadUI.show();
                 importUI.hide();
+                manualUI.hide();
                 validator.initValidationEvents(uploadUI,function(){});
                 validator.removeValidationEvents(importUI);
+                validator.removeValidationEvents(manualUI);
                 $('#form-asset-create').attr('action', caramel.context + '/assets/swagger/apis/swaggers');
 
             } else if (selectedValue == "import") {
                 importUI.show();
                 uploadUI.hide();
+                manualUI.hide();
                 validator.initValidationEvents(importUI,function(){});
                 validator.removeValidationEvents(uploadUI);
+                validator.removeValidationEvents(manualUI);
+                $('#form-asset-create').attr('action', caramel.context + '/apis/assets?type=swagger');
+            } else if (selectedValue == "manual") {
+                manualUI.show();
+                importUI.hide();
+                uploadUI.hide();
+                validator.initValidationEvents(manualUI,function(){});
+                validator.removeValidationEvents(uploadUI);
+                validator.removeValidationEvents(importUI);
                 $('#form-asset-create').attr('action', caramel.context + '/apis/assets?type=swagger');
             }
         });
