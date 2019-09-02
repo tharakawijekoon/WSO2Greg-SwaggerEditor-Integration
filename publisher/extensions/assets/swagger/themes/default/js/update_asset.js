@@ -218,9 +218,10 @@ $(function() {
         if (selectedTaxonomy && taxonomyList) {
             taxonomyList.value = selectedTaxonomy.join(',');
         }
-        //var json = window.localStorage.getItem(SWAGGER_CONTENT);
-        var json = jsyaml.safeLoad(window.localStorage.getItem(SWAGGER_CONTENT));
-        $('#content').val(JSON.stringify(json));
+        var json = window.localStorage.getItem(SWAGGER_CONTENT);
+        // var json = jsyaml.safeLoad(window.localStorage.getItem(SWAGGER_CONTENT));
+
+        $('#content').val(removeNL(json));
         //console.log(JSON.stringify(json));
 
     });
@@ -237,39 +238,9 @@ var showImageFull = function (img) {
 var edit_swagger = function(){
     $("body").addClass("modal-open");
     $(".wizard").hide();
-    $("#swaggerEditer").append('<iframe id="se-iframe"  style="border:0px;"background: #4a4a4a; width="100%" height="100%"></iframe>');
+    $("#swaggerEditer").append('<iframe id="se-iframe" style="border:0px;"background: #4a4a4a; width="100%" height="100%"></iframe>');
     document.getElementById('se-iframe').src = $("#swaggerEditer").attr("editor-url");
     $("#swaggerEditer").show();
-};
-
-var update_swagger = function () {
-    try {
-        var designer = APIDesigner();
-        var json = jsyaml.safeLoad(window.localStorage.getItem(SWAGGER_CONTENT));
-        $('#swaggerDefinition').val(JSON.stringify(json));
-        $('#update_swagger_form').ajaxSubmit({
-            success: function (result) {
-                if (!result.error) {
-                    designer.load_api_document(json);
-                    $("body").removeClass("modal-open");
-                    $("#se-iframe").remove();
-                    $(".wizard").show();
-                    $('#swaggerEditer').append($('.swagger_editer_header'));
-                    $('.tempNav').remove();
-                    $("#swaggerEditer").fadeOut("fast");
-                } else {
-                    jagg.message({content: result.message, type: "error"});
-                }
-            },
-            error: function() {
-                jagg.message({content: i18n.t("Error while updating API swagger definition"), type: "error"});
-            },
-            dataType: 'json'
-        });
-
-    } catch (e) {
-        jagg.message({content: i18n.t("API swagger definition is invalid"), type: "error"});
-    }
 };
 
 var load_swagger_editor_content = function (){
@@ -284,6 +255,23 @@ var load_swagger_editor_content = function (){
         console.log("content empty")
     }
 };
+
+function removeNL(s) {
+    /*
+    ** Remove NewLine, CarriageReturn and Tab characters from a String
+    ** s string to be processed
+    ** returns new string
+    */
+    r = "";
+    for (i=0; i < s.length; i++) {
+        if (s.charAt(i) != '\n' &&
+            s.charAt(i) != '\r' &&
+            s.charAt(i) != '\t') {
+            r += s.charAt(i);
+        }
+    }
+    return r;
+}
 
 $(function(){
     edit_swagger();

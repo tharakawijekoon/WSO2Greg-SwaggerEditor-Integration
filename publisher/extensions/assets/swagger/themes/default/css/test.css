@@ -17,3 +17,25 @@ footer {
     margin-right: 0px;
     margin-left: 0px;
 }
+
+#updateButtons {
+    margin-top: -20px;
+    margin-left: 86pc;
+    padding-top: 15px;
+    margin-bottom: 0px;
+    border-top: 0px;
+}
+
+#containersss {
+    margin-left: auto;
+    margin-right: auto;
+    overflow: auto;
+    height: 75%;
+    overflow-wrap: normal;
+
+}
+
+.modal-open {
+    overflow: hidden;
+    height: 100vh;
+}
