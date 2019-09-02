@@ -1,36 +1,43 @@
 <form class="form-horizontal" id='form-asset-update' method='post' action='{{url ""}}/apis/assets/{{assets.id}}?type={{rxt.shortName}}' data-redirect-url='{{url ""}}/assets/{{rxt.shortName}}/details/' >
-    <div id="swagger-editor" class="" style="margin-right: auto;max-width: 880px;height: 100%;margin-left: auto;">
-        <script>
-            window.onload = function() {
-                // Build a system
-                const editor = SwaggerEditorBundle({
-                    dom_id: '#swagger-editor',
-                    layout: 'StandaloneLayout',
-                    presets: [
-                        SwaggerEditorStandalonePreset
-                    ]
-                })
-                window.editor = editor
-            }
-        </script>
-    </div>
-    <!--<div id="swaggerEditer" class="modal" editor-url='{{url ""}}/themes/default/swaggereditor/' style="display:none; z-index:9000; top:0; left:0; height:100%; width:100%;background:white">-->
-    <!--<div class="swagger_editer_header">-->
-        <!--<button class="btn btn-primary" id="update_swagger">-->
-            <!--<form method="POST" id="update_swagger_form" enctype="multipart/form-data" action='{{url ""}}/assets/{{rxt.shortName}}/details/'/>-->
-                <!--<input type="hidden" value="validateSwagger" name="action"/>-->
-                <!--<input type="hidden" id="swaggerDefinition" name="swaggerDefinition" value="" />-->
-            <!--</form>-->
-        <!--<span class="fw-stack fw-lg" style="font-size:1em">-->
-			<!--<i class="fw fw-circle-outline fw-stack-2x"></i>-->
-			<!--<i class="fw fw-save fw-stack-1x"></i>-->
-		<!--</span>-->
-        <!--<%=i18n.localize("Apply Changes")%>-->
-        <!--</button>-->
-        <!--<button class="btn btn-secondary" data-dismiss="modal" aria-hidden="true" id="close_swagger_editor"><%=i18n.localize("Discard Changes")%></button>-->
-        <!--</div>-->
+    <!--<div class="control-group">-->
+        <!--{{#each assets.tables}}-->
+            <!--{{renderTable . id=../assets.id mode="edit"}}-->
+        <!--{{/each}}-->
     <!--</div>-->
-<div class="clearfix"></div>
+    <!--<div id="swagger-editor" class="" style="margin-right: auto;max-width: 880px;height: 100%;margin-left: auto;">-->
+        <!--<script>-->
+            <!--window.onload = function() {-->
+                <!--// Build a system-->
+                <!--const editor = SwaggerEditorBundle({-->
+                    <!--dom_id: '#swagger-editor',-->
+                    <!--layout: 'StandaloneLayout',-->
+                    <!--presets: [-->
+                        <!--SwaggerEditorStandalonePreset-->
+                    <!--]-->
+                <!--})-->
+                <!--window.editor = editor-->
+            <!--}-->
+        <!--</script>-->
+    <!--</div>-->
+    <div id="swaggerEditer" class="form-group" editor-url='{{url "/themes/default/swaggereditor/#/"}}' style="display:none; z-index:9000; top:0; left:0; height:100%; width:100%;background:white">
+        <input type="hidden" id="content" name="content" value="{{assets.content}}">
+
+        <!--<textarea id="swaggercontent" name="swaggercontent" style="display: none;">{{assets.content}}</textarea>-->
+        <!--<textarea type="hidden" id="swaggercontent" name="swaggercontent">{{assets.content}}</textarea>-->
+        <!--<div id='swagger-viewer'>-->
+            <!--<h2 class="field-title">-->
+                <!--<a class="collapsing-h2" data-toggle="collapse" area-expanded="true" href="#collapseContent">-->
+                    <!--<i class="cu-btn-exp-col btn-collapsed"> {{t "Content"}}</i>-->
+                <!--</a>-->
+            <!--</h2>-->
+            <!--<div id="collapseContent" class="collapse in">-->
+                <!--<textarea id="swaggercontent" name="swaggercontent">{{assets.content}}</textarea>-->
+            <!--</div>-->
+        <!--</div>-->
+        <!--<input type="hidden" id="swaggercontent" name="swaggercontent" value="{{assets.content}}">-->
+
+
+    <div class="clearfix"></div>
     <div id="updateButtons" class="form-actions">
         <input type="hidden" id="asset-id" value="{{assets.id}}">
         <input type="hidden" id="asset-type" value="{{assets.type}}">

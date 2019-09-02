@@ -111,6 +111,7 @@ asset.manager = function(ctx) {
             return asset;
         },
         create: function(options) {
+            new Log('******chanaka').info("****");
             var url = options.overview_url;
             var name = options.overview_name;
             var version = options.overview_version;

@@ -24,6 +24,11 @@ asset.manager = function(ctx) {
 		var am = rxt.asset.createUserAssetManager(session, 'restservice');
 		return am;
 	};
+    var assetManager = function(session, type) {
+        var rxt = require('rxt');
+        var am = rxt.asset.createUserAssetManager(session, type);
+        return am;
+    };
     var isOnlyAssetVersion = function(asset, am) {
         var versions = am.getAssetGroup(asset);
         return (versions.length < 1) ? true : false;
@@ -134,6 +139,7 @@ asset.manager = function(ctx) {
             var assets = am.search(query);
             for (var i = 0; i < assets.length; i++) {
                 if (assets[i].version == version) {
+                    new Log('assets-test').info(assets[i].name+" version: "+assets[i].version);
                     var msg = "resource already exist with Name \"" + name + "\" and version \"" + version + "\"";
                     var exceptionUtils = require('utils');
                     var exceptionModule = exceptionUtils.exception;
@@ -253,7 +259,98 @@ asset.manager = function(ctx) {
             }
             return asset.name;
         },
-        update: function(){
+        update: function(options){
+            // var UpdateTextContentUtil=Packages.org.wso2.carbon.registry.resource.services.utils.UpdateTextContentUtil;
+            // var RegistryUtils = org.wso2.carbon.registry.core.utils.RegistryUtils;
+            new Log('swagger').info(options.content);
+            var asset = this.get(options.id); //TODO avoid get: expensive operation
+            var userRegistry = getRegistry(ctx.session);
+            var resource = userRegistry.registry.get(asset.path);
+            new Log('assetpath-string').info(stringify(asset.path));
+            new Log('assetpath').info(asset.path);
+            new Log('resource-keys').info(Object.keys(resource));
+            new Log('options-keys').info(Object.keys(options));
+            new Log('registry-keys').info(Object.keys(userRegistry.registry));
+            // UpdateTextContentUtil.updateTextContent(asset.path,stringify(options.content)t,userRegistry.registry);
+
+
+            //resource.setContent(new java.lang.String(options.content).getBytes());
+            // resource.prepareContentForPut();
+            // userRegistry.registry.put(asset.path, resource);
+            // resource.discard();
+            // userRegistry.registry.put(asset.path, resource);
+            // var temp = resource.getContent();
+            // var content;
+            // if (temp instanceof String) {
+            //     content = temp;
+            // } else if (temp instanceof byte[]) {
+            //     content = RegistryUtils.decodeBytes(temp);
+            // }
+            //
+            // new Log('content').info(content);
+            var userRegistry = getRegistry(ctx.session);
+            var resource = userRegistry.registry.get(asset.path);
+            resource.setContent(new java.lang.String(options.content).getBytes());
+            userRegistry.registry.put(asset.path, resource);
+
+            // var ByteArrayInputStream = Packages.java.io.ByteArrayInputStream;
+            // // var resource = userRegistry.registry.get(asset.path);
+            // var content = resource.getContent();
+            // var value = '' + new Stream(new ByteArrayInputStream(content));
+            // new Log('content').info(value);
+            //
+            // new Log('getAuthorUserName').info(resource.getAuthorUserName());
+            // new Log('getPath').info(resource.getPath());
+            // new Log('getLastModified').info(resource.getLastModified());
+            // new Log('getResourceDO').info(resource.getResourceDO());
+            // new Log('getVersionNumber').info(resource.getVersionNumber());
+            // new Log('getParentPath').info(resource.getParentPath());
+            // new Log('getId').info(resource.getId());
+            // new Log('getDbBasedContentID').info(resource.getDbBasedContentID());
+            // new Log('isContentModified').info(resource.isContentModified());
+            // new Log('getMediaType').info(resource.getMediaType());
+            // new Log('getUUID').info(resource.getUUID());
+            // new Log('success').info("success");
+
+
+            // if (options.content) {
+            //     var test = options.content;
+            //     if (options.content instanceof Stream) {
+            //         resource.setContentStream(IOUtils.toByteArray(test.getStream()));
+            //         new Log('stream').info(IOUtils.toByteArray(test.getStream()));
+            //     } else {
+            //         //resource.setContent(new java.lang.String(options.content).getBytes());
+            //         resource.setContent(RegistryUtils.encodeString(options.content));
+            //         userRegistry.registry.put(asset.path, resource);
+            //         // userRegistry.registry.put(asset.path, resource);
+            //         // try{
+            //         //     userRegistry.registry.put(asset.path, resource);
+            //         // } catch (e){
+            //         //     log.error(e);
+            //         //     throw e;
+            //         // }
+            //         //new Log('string').info(new java.lang.String(options.content).getBytes().toString());
+            //     }
+            // }
+            //new Log('content').info(resource.getContent());
+
+            // var username = require('store').server.current(session).username;
+            // var manager = restAssetManager(ctx.session);
+            // var asset = this.get(options.id);
+            // new Log('assetpath').info(asset.path);
+            // var artifactPath = asset.path.replace("/_system/governance", "");
+            //
+            // var govRegistry = Packages.org.wso2.carbon.governance.api.util.GovernanceUtils.getGovernanceUserRegistry(manager.registry.registry, username);
+            // artifact = Packages.org.wso2.carbon.governance.api.util.GovernanceUtils.retrieveGovernanceArtifactByPath(govRegistry, artifactPath);
+            // if (options.content) {
+            //     if (options.content instanceof Stream) {
+            //         artifact.setContent(IOUtils.toByteArray(options.content.getStream()));
+            //     } else {
+            //         artifact.setContent(new java.lang.String(options.content).getBytes());
+            //     }
+            // }
+            // var managersss = this.am.manager;
+            // managersss.updateGenericArtifact(artifact);
 
         },
         postCreate:function(){
